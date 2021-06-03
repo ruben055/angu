@@ -1,8 +1,18 @@
 steps:
 
-- name: gcr.io/cloud-builders/docker
-  args: [ build, -t, gcr.io/$PROJECT_ID/gcp-cloudbuild-gce-angular, . ]
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/gcp-cloudbuild-gce-angular', . ]
+  
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/gcp-cloudbuild-gce-angular']
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['compute', 'instances', 'stop', 'test1', '--zone', 'asia-southeast2-a']
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['compute', 'instances', 'start', 'test1', '--zone', 'asia-southeast2-a']
+
 
 images:
 
-- gcr.io/$PROJECT_ID/gcp-cloudbuild-gce-angular
+- ['gcr.io/$PROJECT_ID/gcp-cloudbuild-gce-angular']
